@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package auth;
 
+import "validate/validate.proto";
+
 option go_package = "vasya.sso.v1;ssov1";
 
 service Auth{
@@ -19,10 +21,10 @@ message RegisterRes{
     int64 user_id = 1;
 }
 
-message LoginReq{
-    string email = 1;
-    string password = 2;
-    int64 app_id = 3;
+message LoginReq {
+    string email = 1 [(validate.rules).string.email = true];
+    string password = 2 [(validate.rules).string.min_len = 6];
+    int64 app_id = 3 [(validate.rules).int64.gt = 0];
 }
 
 message LoginRes{
