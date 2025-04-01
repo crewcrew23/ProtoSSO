@@ -13,8 +13,8 @@ service Auth{
 };
 
 message RegisterReq{
-    string email = 1;
-    string password = 2;
+    string email = 1 [(validate.rules).string.email = true];
+    string password = 2 [(validate.rules).string.min_len = 6];
 }
 
 message RegisterRes{
@@ -32,7 +32,7 @@ message LoginRes{
 }
 
 message IsAdminReq{
-    int64 user_id = 1;
+    int64 user_id = 1 [(validate.rules).int64];
 }
 
 message IsAdminRes{
